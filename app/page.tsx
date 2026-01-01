@@ -1,65 +1,182 @@
+// app/page.tsx
 import Image from "next/image";
+import Link from "next/link";
+import NavbarUserMenu from "@/components/NavbarUserMenu";
 
-export default function Home() {
+export default function HomePage() {
+  const colleges = [
+    { name: "Faculty of Engineering", productPrefix: "eng" },
+    { name: "Faculty of Computing", productPrefix: "comp" },
+    { name: "Faculty of Education", productPrefix: "edu" },
+  ];
+
+  const featuredOrganizations = [
+    { name: "Faculty of Engineering", products: 6 },
+    { name: "Faculty of Computing", products: 5 },
+    { name: "Faculty of Education", products: 3 },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="min-h-screen bg-white">
+      {/* NAVBAR */}
+      <header className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 gap-4">
+          {/* Left: logo + title */}
+          <div className="flex items-center gap-3">
+            <Image
+              src="/vsu-logo.png"
+              alt="VSU Logo"
+              width={60}
+              height={60}
+              className="h-15 w-15 rounded-full object-cover"
+            />
+            <span className="text-sm md:text-lg font-semibold">
+              VSU MERCH HUB
+            </span>
+          </div>
+
+          {/* Center: search */}
+          <div className="hidden md:flex flex-1 justify-center">
+            <input
+              type="text"
+              placeholder="Search merchandise"
+              className="w-full max-w-xl rounded-full border px-4 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            />
+          </div>
+
+          {/* Right: actions */}
+          <div className="flex items-center gap-3">
+            <button className="hidden text-sm md:inline">Help</button>
+
+            {/* Cart icon */}
+            <button className="relative rounded-full border p-2 hover:bg-gray-100">
+              <span className="text-lg">🛒</span>
+              <span className="absolute -right-1 -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-emerald-600 text-[10px] text-white">
+                0
+              </span>
+            </button>
+
+            {/* ✅ Login becomes Profile dropdown when logged in */}
+            <NavbarUserMenu />
+          </div>
+        </div>
+      </header>
+
+      {/* HERO */}
+      <section className="relative flex h-107.5 md:h-125 items-center justify-center text-center text-white bg-[url('/vsu-hero.jpg')] bg-cover bg-center">
+        <div className="absolute inset-0 bg-black/45" />
+        <div className="relative z-10 px-4">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight tracking-wide uppercase">
+            OFFICIAL <br />
+            VSU MERCH HUB
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
+          <p className="mt-4 md:mt-5 max-w-3xl mx-auto text-sm md:text-lg font-medium">
+            Welcome to your one-stop-shop for official school shirts, caps, bags,
+            ID lanyards, and more.
+          </p>
+          <div className="mt-8">
             <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              href="#products"
+              className="inline-block rounded-full border-2 border-white px-10 py-3 text-lg md:text-xl font-semibold hover:bg-white hover:text-black transition"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+              Shop Now
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* PRODUCTS */}
+      <section id="products" className="mx-auto max-w-6xl px-4 py-10 space-y-10">
+        {colleges.map((college, index) => (
+          <div key={index} className="space-y-4">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg md:text-xl font-semibold">{college.name}</h2>
+            </div>
+
+            <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+              {[1, 2, 3].map((i) => {
+                const productId = `${college.productPrefix}-product${i}`;
+
+                return (
+                  <article
+                    key={i}
+                    className="group rounded-xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md overflow-hidden"
+                  >
+                    <div
+                      className="h-48 bg-gray-200"
+                      style={{
+                        backgroundImage: `url(/${college.productPrefix}-product${i}.jpg)`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+
+                    <div className="p-4 space-y-1">
+                      <p className="text-[11px] font-medium uppercase tracking-wide text-emerald-700">
+                        {college.name}
+                      </p>
+                      <p className="text-sm font-semibold">Sample Product {i}</p>
+                      <p className="text-sm font-bold text-emerald-700">₱450.00</p>
+
+                      {/* ✅ View Details now navigates */}
+                      <Link
+                        href={`/products/${productId}`}
+                        className="mt-3 block w-full rounded-full bg-black py-2 text-center text-xs md:text-sm font-medium text-white group-hover:bg-gray-900"
+                      >
+                        View Details
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </section>
+
+      {/* FEATURED ORGS */}
+      <section className="bg-gray-100 py-10">
+        <div className="max-w-6xl mx-auto px-4">
+          <h2 className="text-xl font-semibold text-center mb-8">
+            Featured Organizations
+          </h2>
+          <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
+            {featuredOrganizations.map((org, index) => (
+              <div
+                key={index}
+                className="flex flex-col items-center bg-white shadow-sm p-6 rounded-xl"
+              >
+                <h3 className="text-lg font-semibold mb-2">{org.name}</h3>
+                <p className="text-sm text-gray-600 mb-4">
+                  {org.products} products available
+                </p>
+                <a
+                  href="#products"
+                  className="inline-block text-sm text-blue-600 hover:underline"
+                >
+                  View Products
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="bg-green-600 text-white text-center py-6 mt-10">
+        <div className="mx-auto max-w-6xl px-4">
+          <p className="text-lg font-semibold">VSU Merch Hub</p>
+          <p className="mt-2">
+            Supporting student organizations and VSU community through quality
+            merchandise
+          </p>
+          <p className="mt-2">Payment: Cash on Delivery &amp; GCASH</p>
+          <p>Delivery: Campus Pickup &amp; Delivery</p>
+          <p className="mt-4 text-sm">
+            © 2025 Visayas State University. All rights reserved.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </footer>
+    </main>
   );
 }
