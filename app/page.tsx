@@ -1,4 +1,5 @@
 import Image from "next/image";
+import NavbarUserMenu from "@/components/NavbarUserMenu";
 
 export default function HomePage() {
   const colleges = [
@@ -27,7 +28,9 @@ export default function HomePage() {
               height={60}
               className="h-15 w-15 rounded-full object-cover"
             />
-            <span className="text-sm md:text-lg font-semibold">VSU MERCH HUB</span>
+            <span className="text-sm md:text-lg font-semibold">
+              VSU MERCH HUB
+            </span>
           </div>
 
           {/* Center: search */}
@@ -51,13 +54,8 @@ export default function HomePage() {
               </span>
             </button>
 
-            {/* Login */}
-            <a
-              href="/login"
-              className="rounded-full bg-black px-4 py-2 text-xs md:text-sm font-medium text-white hover:bg-gray-800"
-            >
-              Login
-            </a>
+            {/* ✅ Login becomes Profile dropdown when logged in */}
+            <NavbarUserMenu />
           </div>
         </div>
       </header>
@@ -71,7 +69,8 @@ export default function HomePage() {
             VSU MERCH HUB
           </h1>
           <p className="mt-4 md:mt-5 max-w-3xl mx-auto text-sm md:text-lg font-medium">
-            Welcome to your one-stop-shop for official school shirts, caps, bags, ID lanyards, and more.
+            Welcome to your one-stop-shop for official school shirts, caps, bags,
+            ID lanyards, and more.
           </p>
           <div className="mt-8">
             <a
@@ -88,12 +87,10 @@ export default function HomePage() {
       <section id="products" className="mx-auto max-w-6xl px-4 py-10 space-y-10">
         {colleges.map((college, index) => (
           <div key={index} className="space-y-4">
-            {/* College Section */}
             <div className="flex items-center justify-between">
               <h2 className="text-lg md:text-xl font-semibold">{college.name}</h2>
             </div>
 
-            {/* Product Grid */}
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
               {[1, 2, 3].map((i) => (
                 <article
@@ -128,7 +125,9 @@ export default function HomePage() {
       {/* FEATURED ORGS */}
       <section className="bg-gray-100 py-10">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="text-xl font-semibold text-center mb-8">Featured Organizations</h2>
+          <h2 className="text-xl font-semibold text-center mb-8">
+            Featured Organizations
+          </h2>
           <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
             {featuredOrganizations.map((org, index) => (
               <div
@@ -136,7 +135,9 @@ export default function HomePage() {
                 className="flex flex-col items-center bg-white shadow-sm p-6 rounded-xl"
               >
                 <h3 className="text-lg font-semibold mb-2">{org.name}</h3>
-                <p className="text-sm text-gray-600 mb-4">{org.products} products available</p>
+                <p className="text-sm text-gray-600 mb-4">
+                  {org.products} products available
+                </p>
                 <a href="#" className="inline-block text-sm text-blue-600 hover:underline">
                   View Products
                 </a>
@@ -151,11 +152,14 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-4">
           <p className="text-lg font-semibold">VSU Merch Hub</p>
           <p className="mt-2">
-            Supporting student organizations and VSU community through quality merchandise
+            Supporting student organizations and VSU community through quality
+            merchandise
           </p>
           <p className="mt-2">Payment: Cash on Delivery &amp; GCASH</p>
           <p>Delivery: Campus Pickup &amp; Delivery</p>
-          <p className="mt-4 text-sm">© 2025 Visayas State University. All rights reserved.</p>
+          <p className="mt-4 text-sm">
+            © 2025 Visayas State University. All rights reserved.
+          </p>
         </div>
       </footer>
     </main>
