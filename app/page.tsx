@@ -1,4 +1,6 @@
+// app/page.tsx
 import Image from "next/image";
+import Link from "next/link";
 import NavbarUserMenu from "@/components/NavbarUserMenu";
 
 export default function HomePage() {
@@ -92,31 +94,41 @@ export default function HomePage() {
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-              {[1, 2, 3].map((i) => (
-                <article
-                  key={i}
-                  className="group rounded-xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md overflow-hidden"
-                >
-                  <div
-                    className="h-48 bg-gray-200"
-                    style={{
-                      backgroundImage: `url(/${college.productPrefix}-product${i}.jpg)`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                    }}
-                  />
-                  <div className="p-4 space-y-1">
-                    <p className="text-[11px] font-medium uppercase tracking-wide text-emerald-700">
-                      {college.name}
-                    </p>
-                    <p className="text-sm font-semibold">Sample Shirt {i}</p>
-                    <p className="text-sm font-bold text-emerald-700">₱450.00</p>
-                    <button className="mt-3 w-full rounded-full bg-black py-2 text-xs md:text-sm font-medium text-white group-hover:bg-gray-900">
-                      View Details
-                    </button>
-                  </div>
-                </article>
-              ))}
+              {[1, 2, 3].map((i) => {
+                const productId = `${college.productPrefix}-product${i}`;
+
+                return (
+                  <article
+                    key={i}
+                    className="group rounded-xl border bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-md overflow-hidden"
+                  >
+                    <div
+                      className="h-48 bg-gray-200"
+                      style={{
+                        backgroundImage: `url(/${college.productPrefix}-product${i}.jpg)`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    />
+
+                    <div className="p-4 space-y-1">
+                      <p className="text-[11px] font-medium uppercase tracking-wide text-emerald-700">
+                        {college.name}
+                      </p>
+                      <p className="text-sm font-semibold">Sample Product {i}</p>
+                      <p className="text-sm font-bold text-emerald-700">₱450.00</p>
+
+                      {/* ✅ View Details now navigates */}
+                      <Link
+                        href={`/products/${productId}`}
+                        className="mt-3 block w-full rounded-full bg-black py-2 text-center text-xs md:text-sm font-medium text-white group-hover:bg-gray-900"
+                      >
+                        View Details
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         ))}
@@ -138,7 +150,10 @@ export default function HomePage() {
                 <p className="text-sm text-gray-600 mb-4">
                   {org.products} products available
                 </p>
-                <a href="#" className="inline-block text-sm text-blue-600 hover:underline">
+                <a
+                  href="#products"
+                  className="inline-block text-sm text-blue-600 hover:underline"
+                >
                   View Products
                 </a>
               </div>
